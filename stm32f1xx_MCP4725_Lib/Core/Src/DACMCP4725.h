@@ -14,8 +14,8 @@
 
 typedef enum
 {
-    REG_DAC = 0x40,
-    REG_DAC_EEPROM = 0x60,
+    REG_DAC_TEMP = 0x40,   // comando para escribir en el registro temporal
+    REG_DAC_EEPROM = 0x60, // comando para escribir en la eeprom del dac
 } PlaceRegister_t;
 
 class DAC_MCP4725
@@ -30,11 +30,9 @@ public:
 
     DAC_MCP4725( I2C_HandleTypeDef * hi2c, uint8_t addr );
 
-    void sendData( uint16_t data, PlaceRegister_t place );
-    // lee los registro del dac
-    uint16_t read( void );
-    // lee la eeprom
-    uint16_t readEEPROM( void );
-};
+    void setValue( uint16_t data, PlaceRegister_t place );
+    // lee los registro del temporal o eeprom
+    uint16_t getValue( PlaceRegister_t place );
+   };
 
 #endif /* SRC_DACMCP4725_H_ */

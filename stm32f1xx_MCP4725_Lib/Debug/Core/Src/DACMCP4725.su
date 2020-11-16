@@ -1,4 +1,3 @@
 DACMCP4725.cpp:10:1:DAC_MCP4725::DAC_MCP4725(I2C_HandleTypeDef*, uint8_t)	24	static
-DACMCP4725.cpp:18:6:void DAC_MCP4725::sendData(uint16_t, PlaceRegister_t)	32	static
-DACMCP4725.cpp:36:10:uint16_t DAC_MCP4725::read()	32	static
-DACMCP4725.cpp:47:10:uint16_t DAC_MCP4725::readEEPROM()	32	static
+DACMCP4725.cpp:18:6:void DAC_MCP4725::setValue(uint16_t, PlaceRegister_t)	32	static
+DACMCP4725.cpp:36:10:uint16_t DAC_MCP4725::getValue(PlaceRegister_t)	40	static

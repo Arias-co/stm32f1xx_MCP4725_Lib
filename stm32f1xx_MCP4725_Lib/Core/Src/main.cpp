@@ -102,12 +102,14 @@ int main( void )
     MX_I2C1_Init();
     MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
+
     /* escribe el valor en el registro temporal del dac */
-    dac.sendData( 1000, REG_DAC );
-    /* se escribe el valor en la eeprom del dac, al cambiar este
-     * tambien se cambia automaticamente el registro temporal.
+    dac.setValue( 1000, REG_DAC_TEMP );
+    /* se escribe el valor en la eeprom del dac, al cambiar este valor
+     * tambien se carga automaticamente en el registro temporal.
      */
-    dac.sendData( 10, REG_DAC_EEPROM );
+    dac.setValue( 10, REG_DAC_EEPROM );
+
     __HAL_UART_ENABLE_IT( &huart1, UART_IT_RXNE );
     /* USER CODE END 2 */
 
@@ -117,9 +119,9 @@ int main( void )
     {
         HAL_Delay( 1000 );
         /* leer el registro temporal del dac */
-        serial.print("valor dac = %d \r\n",dac.read());
+        serial.print("valor dac = %d \r\n",dac.getValue(REG_DAC_TEMP));
         /* lee la eeprom del dac */
-        serial.print("valor eeprom = %d \r\n",dac.readEEPROM());
+        serial.print("valor eeprom = %d \r\n",dac.getValue(REG_DAC_EEPROM));
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -277,7 +279,7 @@ void USART1_IRQHandler( void )
         serial.receive( pData, 1, INTER_BYTE_TIMEOUT );
         val_dac = atoi( (char*) pData ); //convierte a entero el valor recibido
 
-        dac.sendData( val_dac, REG_DAC );
+        dac.setValue( val_dac, REG_DAC_TEMP );
     }
 
     serial.print( pData ); // imprimo el valor reibido
